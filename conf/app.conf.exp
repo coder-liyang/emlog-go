@@ -1,0 +1,11 @@
+appname = emlog-go
+httpport = 8080
+runmode = dev
+
+mysqluser = "root"
+mysqlpass = "123456"
+mysqlurls = "localhost"
+mysqlpoint = "3306"
+mysqldb   = "emlog-go"
+
+sessionon = true
