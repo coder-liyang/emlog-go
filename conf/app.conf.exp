@@ -7,5 +7,6 @@ mysqlpass = "123456"
 mysqlurls = "localhost"
 mysqlpoint = "3306"
 mysqldb   = "emlog-go"
+mysqldbprefix = ""
 
 sessionon = true

@@ -3,6 +3,7 @@ package models
 import (
 	"errors"
 	"fmt"
+	"github.com/astaxie/beego"
 	"reflect"
 	"strings"
 
@@ -34,7 +35,7 @@ type Blog struct {
 }
 
 func init() {
-	orm.RegisterModel(new(Blog))
+	orm.RegisterModelWithPrefix(beego.AppConfig.String("mysqldbprefix"), new(Blog))
 }
 
 // AddBlog insert a new Blog into database and returns
@@ -158,4 +159,19 @@ func DeleteBlog(id int64) (err error) {
 		}
 	}
 	return
+}
+//获取前台显示的文章
+func GetLogsForHome() (ml []interface{}, err error) {
+	var query = make(map[string]string)
+	query["hide"] = "n"
+	query["checked"] = "y"
+
+	return GetAllBlog(
+		query,//make(map[string]string)
+		[]string{}, //var fields []string
+		[]string{"top", "date"},
+		[]string{"desc", "desc"},
+		0,
+		1,
+		)
 }

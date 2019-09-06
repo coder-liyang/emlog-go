@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 )
 
@@ -12,8 +13,7 @@ type Options struct {
 }
 
 func init() {
-	//orm.RegisterModel(new(Options))
-	orm.RegisterModelWithPrefix("e_", new(Options))
+	orm.RegisterModelWithPrefix(beego.AppConfig.String("mysqldbprefix"), new(Options))
 }
 
 // AddOptions insert a new Options into database and returns
