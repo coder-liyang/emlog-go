@@ -26,13 +26,14 @@ func (c * MainController) Index() {
 		c.Ctx.WriteString(err.Error())
 	}
 	//文章列表
-	blog, err := models.GetLogsForHome()
-	fmt.Println(blog)
+	blogs, err := models.GetLogsForHome()
+	fmt.Println(blogs)
 
 	//c.Data["Options"] = options
 	for _, item := range options {
 		c.Data[item.OptionName] = item.OptionValue
 	}
+	c.Data["blogs"] = blogs
 
 	c.TplName = "index.tpl"
 }

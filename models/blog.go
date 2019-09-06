@@ -172,6 +172,6 @@ func GetLogsForHome() (ml []interface{}, err error) {
 		[]string{"top", "date"},
 		[]string{"desc", "desc"},
 		0,
-		1,
+		10,
 		)
 }
