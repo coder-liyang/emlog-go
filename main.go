@@ -6,6 +6,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 	_ "liyangweb/routers"
+	"time"
 )
 
 func init() {
@@ -34,7 +35,12 @@ func init() {
 	}
 }
 
+func convertTime (int_time int64) string {
+	return time.Unix(int_time, 0).Format("2006-01-02 15:04:05")
+}
+
 func main() {
+	beego.AddFuncMap("convertTime", convertTime)
 	beego.Run()
 }
 
