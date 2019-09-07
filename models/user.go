@@ -6,7 +6,7 @@ import (
 )
 
 type User struct {
-	Uid int64 `orm:"auto"`
+	Id int64 `json:"id" orm:"column(uid);pk"`
 	Username string `orm:"size(32)"`
 	Password string
 	Nickname string

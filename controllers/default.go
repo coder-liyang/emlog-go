@@ -51,7 +51,11 @@ func (c *MainController) Content() {
 	gid, _ := strconv.ParseInt(c.Ctx.Input.Param(":gid"), 10, 64)
 	blog, err := models.GetBlogByGid(gid)
 	if err != nil {
-		fmt.Println(gid, err.Error())
+		fmt.Println(err.Error())
+		c.Ctx.WriteString(err.Error())
+	}
+	if blog == nil {
+		fmt.Println("blog is nil")
 	}
 	c.Data["blog"] = &blog
 

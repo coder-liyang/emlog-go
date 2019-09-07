@@ -2,10 +2,10 @@
     <header class="entry-header">
         <h1 class="entry-title">{{ .blog.Title }}</h1>
         <div class="entry-meta">
-            <span class="post-category"><a href="#">Django 博客教程</a></span>
+            <span class="post-category"><a href="#">分类名称</a></span>
             <span class="post-date"><a href="#"><time class="entry-date"
                                                       datetime="{{ .blog.Date | convertTime }}">{{ .blog.Date | convertTime }}</time></a></span>
-            <span class="post-author"><a href="#">追梦人物</a></span>
+            <span class="post-author"><a href="#">{{.blog.User.Nickname}}</a></span>
             <span class="comments-link"><a href="#">4 评论</a></span>
             <span class="views-count"><a href="#">{{.blog.Views}} 阅读</a></span>
         </div>

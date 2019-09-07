@@ -13,13 +13,12 @@ import (
 type Blog struct {
 	//Gid          int64 `orm:"auto"`
 	//Gid         int64
-	Gid          int64 `orm:"auto"`
+	Gid          int64 `orm:"auto;pk"`
 	Title       string `orm:"size(128)"`
 	Date        int64
 	Content     string `orm:"size(128)"`
 	Excerpt     string `orm:"size(128)"`
 	Alias       string `orm:"size(128)"`
-	Author      int64
 	Sortid      int
 	Type        string `orm:"size(128)"`
 	Views       int
@@ -32,6 +31,8 @@ type Blog struct {
 	AllowRemark string `orm:"size(128)"`
 	Password    string `orm:"size(128)"`
 	Template    string `orm:"size(128)"`
+	//Author     *User `json:"user_id";orm:"rel(fk)"`
+	User        *User  `orm:"rel(fk);column(author)" json:"author"`
 }
 
 func init() {
