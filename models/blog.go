@@ -11,9 +11,7 @@ import (
 )
 
 type Blog struct {
-	//Gid          int64 `orm:"auto"`
-	//Gid         int64
-	Gid          int64 `orm:"auto;pk"`
+	Gid         int64 `orm:"auto;pk"`
 	Title       string `orm:"size(128)"`
 	Date        int64
 	Content     string `orm:"size(128)"`
@@ -31,7 +29,8 @@ type Blog struct {
 	AllowRemark string `orm:"size(128)"`
 	Password    string `orm:"size(128)"`
 	Template    string `orm:"size(128)"`
-	//Author     *User `json:"user_id";orm:"rel(fk)"`
+	//这样写也行,页面中这样取.User.Nickname,但是新增数据的时候不知道会不会影响赋值
+	//Author     *User `orm:"rel(fk);column(author)" json:"author"`
 	User        *User  `orm:"rel(fk);column(author)" json:"author"`
 }
 
