@@ -73,11 +73,11 @@
                     <article class="post post-1">
                         <header class="entry-header">
                             <h1 class="entry-title">
-                                <a href="single.html">{{.Title}}</a>
+                                <a href="/{{.Gid}}.html">{{.Title}}</a>
                             </h1>
                             <div class="entry-meta">
                                 <span class="post-category"><a href="#">Django 博客教程</a></span>
-                                <span class="post-date"><a href="#"><time class="entry-date" datetime="2012-11-09T23:15:57+00:00">{{ .Date | convertTime }}</time></a></span>
+                                <span class="post-date"><a href="#"><time class="entry-date" datetime="{{ .Date | convertTime }}">{{ .Date | convertTime }}</time></a></span>
                                 <span class="post-author"><a href="#">{{.Author}}</a></span><!-- 要显示作者姓名 -->
                                 <span class="comments-link"><a href="#">4 评论</a></span>
                                 <span class="views-count"><a href="#">{{.Views}} 阅读</a></span>
@@ -86,7 +86,7 @@
                         <div class="entry-content clearfix">
                             {{or .Excerpt .Content | str2html}}
                             <div class="read-more cl-effect-14">
-                                <a href="#" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
+                                <a href="/{{.Gid}}.html" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
                             </div>
                         </div>
                     </article>
