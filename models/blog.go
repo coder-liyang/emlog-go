@@ -161,17 +161,29 @@ func DeleteBlog(id int64) (err error) {
 	return
 }
 //获取前台显示的文章
-func GetLogsForHome() (ml []interface{}, err error) {
+func GetLogsForHome(page int64) (ml []interface{}, err error) {
 	var query = make(map[string]string)
 	query["hide"] = "n"
 	query["checked"] = "y"
 
+	var limit int64 = 10
+	offset := (page - 1) * limit
 	return GetAllBlog(
 		query,//make(map[string]string)
 		[]string{}, //var fields []string
 		[]string{"top", "date"},
 		[]string{"desc", "desc"},
-		0,
+		offset,
 		10,
 		)
+}
+
+func BlogTotal() (int64, error) {
+	var query = make(map[string]string)
+	query["hide"] = "n"
+	query["checked"] = "y"
+
+	o := orm.NewOrm()
+	qs := o.QueryTable(new(Blog))
+	return qs.Count()
 }

@@ -84,7 +84,7 @@
                             </div>
                         </header>
                         <div class="entry-content clearfix">
-                            {{or .Excerpt .Content}}
+                            {{or .Excerpt .Content | str2html}}
                             <div class="read-more cl-effect-14">
                                 <a href="#" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
                             </div>
@@ -99,7 +99,7 @@
                     <a href="#">下一页</a>
                 </div>
                 -->
-                <div class="pagination">
+                <!-- <div class="pagination">
                     <ul>
                         <li><a href="">1</a></li>
                         <li><a href="">...</a></li>
@@ -112,6 +112,30 @@
                         <li><a href="">11</a></li>
                     </ul>
                 </div>
+                -->
+                {{if gt .paginator.PageNums 1}}
+                    <ul class="pagination pagination-sm">
+                        {{if .paginator.HasPrev}}
+                            <li><a href="{{.paginator.PageLinkFirst}}">首页</a></li>
+                            <li><a href="{{.paginator.PageLinkPrev}}">&lt;</a></li>
+                        {{else}}
+                            <li class="disabled"><a>首页</a></li>
+                            <li class="disabled"><a>&lt;</a></li>
+                        {{end}}
+                        {{range $index, $page := .paginator.Pages}}
+                            <li{{if $.paginator.IsActive .}} class="active"{{end}}>
+                                <a href="{{$.paginator.PageLink $page}}">{{$page}}</a>
+                            </li>
+                        {{end}}
+                        {{if .paginator.HasNext}}
+                            <li><a href="{{.paginator.PageLinkNext}}">&gt;</a></li>
+                            <li><a href="{{.paginator.PageLinkLast}}">尾页</a></li>
+                        {{else}}
+                            <li class="disabled"><a>&gt;</a></li>
+                            <li class="disabled"><a>尾页</a></li>
+                        {{end}}
+                    </ul>
+                {{end}}
             </main>
             <aside class="col-md-4">
                 <div class="widget widget-recent-posts">
