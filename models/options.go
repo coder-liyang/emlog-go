@@ -2,7 +2,6 @@ package models
 
 import (
 	"fmt"
-	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 )
 
@@ -10,10 +9,6 @@ type Options struct {
 	OptionId    int64 `orm:"auto"`
 	OptionName  string `orm:"size(128)"`
 	OptionValue string `orm:"size(128)"`
-}
-
-func init() {
-	orm.RegisterModelWithPrefix(beego.AppConfig.String("mysqldbprefix"), new(Options))
 }
 
 // AddOptions insert a new Options into database and returns

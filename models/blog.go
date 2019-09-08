@@ -3,7 +3,6 @@ package models
 import (
 	"errors"
 	"fmt"
-	"github.com/astaxie/beego"
 	"reflect"
 	"strings"
 
@@ -11,13 +10,12 @@ import (
 )
 
 type Blog struct {
-	Gid         int64 `orm:"auto;pk"`
+	Gid         int64  `orm:"auto;pk"`
 	Title       string `orm:"size(128)"`
 	Date        int64
 	Content     string `orm:"size(128)"`
 	Excerpt     string `orm:"size(128)"`
 	Alias       string `orm:"size(128)"`
-	Sortid      int
 	Type        string `orm:"size(128)"`
 	Views       int
 	Comnum      int
@@ -31,11 +29,10 @@ type Blog struct {
 	Template    string `orm:"size(128)"`
 	//这样写也行,页面中这样取.User.Nickname,但是新增数据的时候不知道会不会影响赋值
 	//Author     *User `orm:"rel(fk);column(author)" json:"author"`
-	User        *User  `orm:"rel(fk);column(author)" json:"author"`
-}
-
-func init() {
-	orm.RegisterModelWithPrefix(beego.AppConfig.String("mysqldbprefix"), new(Blog))
+	//User *User `orm:"rel(fk);column(author)" json:"author"`//json:"author" 去掉也可以
+	User *User `orm:"rel(fk);column(author)"`
+	//Sortid      int
+	Sort *Sort `orm:"rel(fk);column(sortid)" json:"sortid"`
 }
 
 // AddBlog insert a new Blog into database and returns
@@ -160,6 +157,7 @@ func DeleteBlog(id int64) (err error) {
 	}
 	return
 }
+
 //获取前台显示的文章
 func GetLogsForHome(page int64) (ml []interface{}, err error) {
 	var query = make(map[string]string)
@@ -169,13 +167,13 @@ func GetLogsForHome(page int64) (ml []interface{}, err error) {
 	var limit int64 = 10
 	offset := (page - 1) * limit
 	return GetAllBlog(
-		query,//make(map[string]string)
+		query,      //make(map[string]string)
 		[]string{}, //var fields []string
 		[]string{"top", "date"},
 		[]string{"desc", "desc"},
 		offset,
 		10,
-		)
+	)
 }
 
 func BlogTotal() (int64, error) {

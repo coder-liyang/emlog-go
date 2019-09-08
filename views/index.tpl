@@ -5,10 +5,10 @@
                 <a href="/{{.Gid}}.html">{{.Title}}</a>
             </h1>
             <div class="entry-meta">
-                <span class="post-category"><a href="#">Django 博客教程</a></span>
+                <span class="post-category"><a href="#">{{.Sort.Sortname}}</a></span>
                 <span class="post-date"><a href="#"><time class="entry-date" datetime="{{ .Date | convertTime }}">{{ .Date | convertTime }}</time></a></span>
                 <span class="post-author"><a href="#">{{.User.Nickname}}</a></span><!-- 要显示作者姓名 -->
-                <span class="comments-link"><a href="#">4 评论</a></span>
+                <span class="comments-link"><a href="#">{{.Comnum}} 评论</a></span>
                 <span class="views-count"><a href="#">{{.Views}} 阅读</a></span>
             </div>
         </header>
