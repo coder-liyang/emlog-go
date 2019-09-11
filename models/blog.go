@@ -170,7 +170,7 @@ func GetLogsForHome(page int64) (ml []interface{}, err error) {
 		query,      //make(map[string]string)
 		[]string{}, //var fields []string
 		[]string{"top", "date"},
-		[]string{"desc", "desc"},
+		[]string{"desc"},
 		offset,
 		10,
 	)

@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/utils/pagination"
+	"github.com/techoner/gophp"
 	"liyangweb/models"
+	"liyangweb/sides"
 	"strconv"
 )
 
@@ -21,6 +23,20 @@ func setOptions(c *MainController) {
 	for _, item := range options {
 		c.Data[item.OptionName] = item.OptionValue
 	}
+	//侧边栏
+	widgets1 := c.Data["widgets1"].(string)
+
+	//widgets1通过unserialize后,变成[]interface{}类型了
+	//[]interface {}
+	//[search custom_wg_1 newcomm blogger twitter archive random_log calendar link custom_wg_4]
+	unserialize, _ := gophp.Unserialize([]byte(widgets1))
+	for _, val := range unserialize.([]interface{}) {
+		sideName := val.(string)
+		if sideName == "twitter" {
+			sides.Sides["twitter"] = sides.Twitter()
+		}
+	}
+	c.Data["sides"] = sides.Sides
 }
 
 //首页
@@ -29,7 +45,7 @@ func (c *MainController) Index() {
 		page int64
 	)
 	setOptions(c)
-
+	//fmt.Println(c.Data["sides"])
 	//文章列表
 	//pageStr := c.GetString("p")
 	//page, _ = strconv.ParseInt(pageStr, 10, 64)

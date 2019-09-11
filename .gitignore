@@ -8,3 +8,5 @@
 out
 gen
 liyangweb
+/go_build_liyangweb
+/go_build_main_go

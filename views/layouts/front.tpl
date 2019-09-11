@@ -6,8 +6,8 @@
     <!-- meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="{{.site_key}}" />
-    <meta name="description" content="{{.site_description}}" />
+    <meta name="keywords" content="{{.site_key}}"/>
+    <meta name="description" content="{{.site_description}}"/>
 
     <!-- css -->
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
@@ -72,6 +72,16 @@
                 {{.LayoutContent}}
             </main>
             <aside class="col-md-4">
+                <div class="widget widget-recent-posts">
+                    <h3 class="widget-title">微语</h3>
+                    {{range .sides.twitter}}
+                        <ul>
+                            <li>
+                                <a href="#">{{.Content}}</a>
+                            </li>
+                        </ul>
+                    {{end}}
+                </div>
                 <div class="widget widget-recent-posts">
                     <h3 class="widget-title">最新文章</h3>
                     <ul>

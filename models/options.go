@@ -85,3 +85,15 @@ func GetOptionFromOptions(options []Options, optionName string) string {
 	}
 	return ""
 }
+
+// GetOptionsByOptionName retrieves Options by OptionName. Returns error if
+// OptionName doesn't exist
+func GetOptionsByOptionName(optionName string) (v *Options, err error) {
+	o := orm.NewOrm()
+	v = &Options{OptionName: optionName}
+	if err = o.QueryTable(new(Options)).Filter("OptionName", optionName).RelatedSel().One(v); err == nil {
+		return v, nil
+	}
+	return nil, err
+}
+
