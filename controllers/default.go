@@ -33,7 +33,9 @@ func setOptions(c *MainController) {
 	for _, val := range unserialize.([]interface{}) {
 		sideName := val.(string)
 		if sideName == "twitter" {
-			sides.Sides["twitter"] = sides.Twitter()
+			sides.Sides[sideName] = sides.Twitter()
+		} else {
+			sides.Sides[sideName] = make([]interface{}, 10)
 		}
 	}
 	c.Data["sides"] = sides.Sides

@@ -72,16 +72,31 @@
                 {{.LayoutContent}}
             </main>
             <aside class="col-md-4">
-                <div class="widget widget-recent-posts">
-                    <h3 class="widget-title">微语</h3>
-                    {{range .sides.twitter}}
-                        <ul>
-                            <li>
-                                <a href="#">{{.Content}}</a>
-                            </li>
-                        </ul>
+
+                {{range $sideName, $sideContent := .sides}}
+                    {{if eq $sideName "twitter" }}
+                        <div class="widget widget-recent-posts">
+                            <h3 class="widget-title">微语</h3>
+                            {{range $sideContent}}
+                                <ul>
+                                    <li>
+                                        <a href="#">{{.Content}}</a>
+                                    </li>
+                                </ul>
+                            {{end}}
+                        </div>
+                    {{else}}
+                        <div class="widget widget-recent-posts">
+                            <h3 class="widget-title">{{$sideName}}还未开发</h3>
+{{/*                            <ul>*/}}
+{{/*                                <li>*/}}
+{{/*                                    <a href="#">还未开发</a>*/}}
+{{/*                                </li>*/}}
+{{/*                            </ul>*/}}
+                        </div>
                     {{end}}
-                </div>
+                {{end}}
+
                 <div class="widget widget-recent-posts">
                     <h3 class="widget-title">最新文章</h3>
                     <ul>
