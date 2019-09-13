@@ -32,8 +32,10 @@ func setOptions(c *MainController) {
 	unserialize, _ := gophp.Unserialize([]byte(widgets1))
 	for _, val := range unserialize.([]interface{}) {
 		sideName := val.(string)
-		if sideName == "twitter" {
-			sides.Sides[sideName] = sides.Twitter()
+		if sideName == "twitter" { //微语
+			sides.Sides[sideName] = sides.WidgetTwitter()
+		} else if sideName == "archive"  { //归档
+			sides.Sides["archive"] = sides.WidgetArchive()
 		} else {
 			sides.Sides[sideName] = make([]interface{}, 10)
 		}
