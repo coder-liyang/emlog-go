@@ -85,14 +85,23 @@
                                 </ul>
                             {{end}}
                         </div>
+                    {{else if eq $sideName "archive"}}
+                        <div class="widget widget-archives">
+                            <h3 class="widget-title">归档</h3>
+                            <ul>
+                                {{range $sideContent}}
+                                    <li><a href="javascript:">{{.Date}}</a></li>
+                                {{end}}
+                            </ul>
+                        </div>
                     {{else}}
                         <div class="widget widget-recent-posts">
                             <h3 class="widget-title">{{$sideName}}还未开发</h3>
-{{/*                            <ul>*/}}
-{{/*                                <li>*/}}
-{{/*                                    <a href="#">还未开发</a>*/}}
-{{/*                                </li>*/}}
-{{/*                            </ul>*/}}
+                            {{/*                            <ul>*/}}
+                            {{/*                                <li>*/}}
+                            {{/*                                    <a href="#">还未开发</a>*/}}
+                            {{/*                                </li>*/}}
+                            {{/*                            </ul>*/}}
                         </div>
                     {{end}}
                 {{end}}
@@ -108,20 +117,6 @@
                         </li>
                         <li>
                             <a href="#">部署 Django 博客</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="widget widget-archives">
-                    <h3 class="widget-title">归档</h3>
-                    <ul>
-                        <li>
-                            <a href="#">2017 年 5 月</a>
-                        </li>
-                        <li>
-                            <a href="#">2017 年 4 月</a>
-                        </li>
-                        <li>
-                            <a href="#">2017 年 3 月</a>
                         </li>
                     </ul>
                 </div>
