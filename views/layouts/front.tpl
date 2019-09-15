@@ -119,6 +119,15 @@
                                 <p>{{.Description | str2html}}</p>
                             {{end}}
                         </div>
+                    {{else if eq $sideName "newcomm"}}
+                        <div class="widget widget-recent-posts">
+                            <h3 class="widget-title">最新评论</h3>
+                            <ul>
+                                {{range $sideContent}}
+                                    <li><a href="javascript:" target="_blank">{{.Poster}} {{.Comment}}</a></li>
+                                {{end}}
+                            </ul>
+                        </div>
                     {{else}}
                         <div class="widget widget-recent-posts">
                             <h3 class="widget-title">{{$sideName}}还未开发</h3>

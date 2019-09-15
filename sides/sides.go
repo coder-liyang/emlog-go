@@ -1,7 +1,6 @@
 package sides
 
 import (
-	"fmt"
 	"github.com/astaxie/beego/orm"
 	"liyangweb/models"
 	"strconv"
@@ -38,8 +37,6 @@ func WidgetArchive() (archive []interface{}) {
 	var archivesInterface []interface{}
 	for _, v := range archives {
 		archivesInterface = append(archivesInterface, v)
-		//如果接收item的话,也可以用下面的方法
-		//archivesInterface[i] = v
 	}
 	Sides["archive"] = archivesInterface
 	return archivesInterface
@@ -62,8 +59,17 @@ func WidgetBlogger() ([]interface{}) {
 	return usersI
 }
 //最新评论
-func WidgetNewcomm() (comments []interface{}) {
+//原系统还查询了父评论,这里我就简单处理了,不查询父评论了
+func WidgetNewcomm() (commentsInterface []interface{}) {
+	var (
+		o orm.Ormer
+		//[{0 comment_order newer} {0 comment_paging y} {0 comment_pnum 15} {0 comment_subnum 20} {0 index_comnum 10}]
+		qs orm.QuerySeter
+		l []models.Options
+		comments []models.Comments
+	)
 	/*
+	查看配置信息
 	SELECT option_value, option_name
 	FROM e_options
 	WHERE option_name IN ('index_comnum', 'comment_subnum', 'comment_paging', 'comment_pnum', 'comment_order')
@@ -73,11 +79,33 @@ func WidgetNewcomm() (comments []interface{}) {
 	comment_paging:评论是否分页
 	comment_order:排序方式 newer older
 	 */
-	o := orm.NewOrm()
-	qs := o.QueryTable(new(models.Options))
+	o = orm.NewOrm()
+	qs = o.QueryTable(new(models.Options))
 	qs = qs.Filter("option_name__in", "index_comnum", "comment_subnum", "comment_paging", "comment_pnum", "comment_order")
-	var l []models.Options
-	qs.All(&l, "option_value", "option_name")
-	fmt.Println(l)
-	return comments
+	_, _ = qs.All(&l, "option_value", "option_name")
+
+	//map[comment_order:newer comment_paging:y comment_pnum:15 comment_subnum:20 index_comnum:10]
+	//var optionsMap = make(map[string]string)
+	optionsMap := map[string]string{}
+	for _, v := range l {
+		//fmt.Printf("OptionName:%s-%T;OptioinValue:%s:%T\n", v.OptionName,v.OptionName, v.OptionValue, v.OptionValue)
+		optionsMap[v.OptionName] = v.OptionValue
+	}
+	//查评论
+	//SELECT * FROM e_comment WHERE hide='n' ORDER BY date DESC LIMIT 0, 10
+	//qs = o.QueryTable(new(models.Comments))
+	//qs = o.QueryTable("comment")
+	//qs = o.QueryTable("e_comment")
+	//qs = qs.Filter("hide", "n")
+	//
+	//qs.All(comments)
+	//for _, comment := range comments{
+	//	commentsInterface = append(commentsInterface, comment)
+	//}
+	oo := orm.NewOrm()
+	_, _ = oo.Raw("SELECT * FROM e_comment WHERE hide='n' ORDER BY date DESC LIMIT 0, ?", optionsMap["index_comnum"]).QueryRows(&comments)
+	for _, comment := range comments{
+		commentsInterface = append(commentsInterface, comment)
+	}
+	return commentsInterface
 }

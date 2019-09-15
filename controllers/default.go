@@ -41,8 +41,7 @@ func setOptions(c *MainController) {
 		} else if sideName == "blogger" {
 			sides.Sides["blogger"] = sides.WidgetBlogger()[0:1]
 		} else if sideName == "newcomm" {
-			//sides.Sides["newcomm"] =
-				sides.WidgetNewcomm()
+			sides.Sides["newcomm"] = sides.WidgetNewcomm()
 		} else {
 			sides.Sides[sideName] = make([]interface{}, 10)
 		}

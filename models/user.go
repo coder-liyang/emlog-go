@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/astaxie/beego/orm"
 )
 
@@ -24,6 +23,6 @@ func GetUserFromUid(uid int64) User {
 	o := orm.NewOrm()
 	o.Read(&user)
 
-	fmt.Println(user)
+	//fmt.Println(user)
 	return user
 }
