@@ -90,9 +90,34 @@
                             <h3 class="widget-title">归档</h3>
                             <ul>
                                 {{range $sideContent}}
-                                    <li><a href="javascript:">{{.Date}}</a></li>
+                                    <li><a href="javascript:">{{.Ym}}({{.Total}})</a></li>
                                 {{end}}
                             </ul>
+                        </div>
+                    {{else if eq $sideName "search"}}
+                        <div class="widget widget-archives">
+                            <h3 class="widget-title">搜索</h3>
+                            <form role="search" method="get" id="searchform" action="#">
+                                <input type="search" placeholder="搜索" required="">
+                                <button type="submit"><span class="ion-ios-search-strong"></span></button>
+                            </form>
+                        </div>
+                    {{else if eq $sideName "link"}}
+                        <div class="widget widget-recent-posts">
+                            <h3 class="widget-title">友情链接</h3>
+                            <ul>
+                                {{range $sideContent}}
+                                    <li><a href="javascript:" target="_blank">{{.Sitename}}</a></li>
+                                {{end}}
+                            </ul>
+                        </div>
+                    {{else if eq $sideName "blogger"}}
+                        <div class="widget widget-recent-posts">
+                            <h3 class="widget-title">我</h3>
+                            {{range $sideContent}}
+                                <p>{{.Nickname}}</p>
+                                <p>{{.Description | str2html}}</p>
+                            {{end}}
                         </div>
                     {{else}}
                         <div class="widget widget-recent-posts">

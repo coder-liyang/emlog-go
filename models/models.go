@@ -13,5 +13,6 @@ func init()  {
 		new(Options),
 		new(Sort),
 		new(Twitter),
+		new(Link),
 		)
 }

@@ -36,6 +36,13 @@ func setOptions(c *MainController) {
 			sides.Sides[sideName] = sides.WidgetTwitter()
 		} else if sideName == "archive"  { //归档
 			sides.Sides["archive"] = sides.WidgetArchive()
+		} else if sideName == "link" {
+			sides.Sides["link"] = sides.WidgetLink()
+		} else if sideName == "blogger" {
+			sides.Sides["blogger"] = sides.WidgetBlogger()[0:1]
+		} else if sideName == "newcomm" {
+			//sides.Sides["newcomm"] =
+				sides.WidgetNewcomm()
 		} else {
 			sides.Sides[sideName] = make([]interface{}, 10)
 		}
