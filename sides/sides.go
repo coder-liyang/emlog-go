@@ -98,7 +98,7 @@ func WidgetNewcomm() (commentsInterface []interface{}) {
 	//qs = o.QueryTable("e_comment")
 	//qs = qs.Filter("hide", "n")
 	//
-	//qs.All(comments)
+	//qs.All(&comments)
 	//for _, comment := range comments{
 	//	commentsInterface = append(commentsInterface, comment)
 	//}
@@ -108,4 +108,9 @@ func WidgetNewcomm() (commentsInterface []interface{}) {
 		commentsInterface = append(commentsInterface, comment)
 	}
 	return commentsInterface
+}
+
+func WidgetRandomLog() (blogs []interface{}) {
+	blogs = models.BlogRandom()
+	return
 }

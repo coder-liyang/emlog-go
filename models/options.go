@@ -6,7 +6,7 @@ import (
 )
 
 type Options struct {
-	OptionId    int64 `orm:"auto"`
+	OptionId    int64  `orm:"auto"`
 	OptionName  string `orm:"size(128)"`
 	OptionValue string `orm:"size(128)"`
 }
@@ -97,3 +97,12 @@ func GetOptionsByOptionName(optionName string) (v *Options, err error) {
 	return nil, err
 }
 
+//通过配置名找到对应的配置值
+func GetOptionValueByName(optionName string) (OptionValue string) {
+	o := orm.NewOrm()
+	v := &Options{OptionName: optionName}
+	if err := o.QueryTable(new(Options)).Filter("OptionName", optionName).RelatedSel().One(v); err == nil {
+		return v.OptionValue
+	}
+	return ""
+}

@@ -3,8 +3,11 @@ package models
 import (
 	"errors"
 	"fmt"
+	"math/rand"
 	"reflect"
+	"strconv"
 	"strings"
+	"time"
 
 	"github.com/astaxie/beego/orm"
 )
@@ -176,6 +179,7 @@ func GetLogsForHome(page int64) (ml []interface{}, err error) {
 	)
 }
 
+//博客总数量
 func BlogTotal() (int64, error) {
 	var query = make(map[string]string)
 	query["hide"] = "n"
@@ -184,4 +188,22 @@ func BlogTotal() (int64, error) {
 	o := orm.NewOrm()
 	qs := o.QueryTable(new(Blog))
 	return qs.Count()
+}
+
+//随机文章
+func BlogRandom() (blogs []interface{}) {
+	indexRandlog := GetOptionValueByName("index_randlognum")
+	indexRandlognum, _ := strconv.ParseInt(indexRandlog, 10, 64)
+	blogTotal, _ := BlogTotal()
+
+	var query = make(map[string]string)
+	query["hide"] = "n"
+	query["checked"] = "y"
+
+	rand.Seed(time.Now().UnixNano())
+
+	offset := rand.Int63n(blogTotal - indexRandlognum)
+
+	blogs, _ = GetAllBlog(query, []string{}, []string{}, []string{}, offset, indexRandlognum)
+	return blogs
 }

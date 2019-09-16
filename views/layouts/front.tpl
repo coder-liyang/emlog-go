@@ -128,6 +128,15 @@
                                 {{end}}
                             </ul>
                         </div>
+                    {{else if eq $sideName "random_log"}}
+                        <div class="widget widget-recent-posts">
+                            <h3 class="widget-title">随便看看</h3>
+                            <ul>
+                                {{range $sideContent}}
+                                    <li><a href="/{{.Gid}}.html">{{.Title}}</a></li>
+                                {{end}}
+                            </ul>
+                        </div>
                     {{else}}
                         <div class="widget widget-recent-posts">
                             <h3 class="widget-title">{{$sideName}}还未开发</h3>

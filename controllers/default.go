@@ -42,7 +42,12 @@ func setOptions(c *MainController) {
 			sides.Sides["blogger"] = sides.WidgetBlogger()[0:1]
 		} else if sideName == "newcomm" {
 			sides.Sides["newcomm"] = sides.WidgetNewcomm()
+		} else if sideName == "search" {
+			sides.Sides["search"] = make([]interface{}, 0)
+		} else if sideName == "random_log" {
+			sides.Sides["random_log"] = sides.WidgetRandomLog()
 		} else {
+			//fmt.Println(sideName)
 			sides.Sides[sideName] = make([]interface{}, 10)
 		}
 	}
