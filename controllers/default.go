@@ -8,6 +8,7 @@ import (
 	"liyangweb/models"
 	"liyangweb/sides"
 	"strconv"
+	"strings"
 )
 
 type MainController struct {
@@ -23,6 +24,10 @@ func setOptions(c *MainController) {
 	for _, item := range options {
 		c.Data[item.OptionName] = item.OptionValue
 	}
+	//系统组件的自定义名称
+	//widgetTitle, _ := gophp.Unserialize([]byte(c.Data["widget_title"].(string)))
+	//自定义组件
+	customWidget, _ := gophp.Unserialize([]byte(c.Data["custom_widget"].(string)))
 	//侧边栏
 	widgets1 := c.Data["widgets1"].(string)
 
@@ -35,19 +40,21 @@ func setOptions(c *MainController) {
 		if sideName == "twitter" { //微语
 			sides.Sides[sideName] = sides.WidgetTwitter()
 		} else if sideName == "archive"  { //归档
-			sides.Sides["archive"] = sides.WidgetArchive()
+			sides.Sides[sideName] = sides.WidgetArchive()
 		} else if sideName == "link" {
-			sides.Sides["link"] = sides.WidgetLink()
+			sides.Sides[sideName] = sides.WidgetLink()
 		} else if sideName == "blogger" {
-			sides.Sides["blogger"] = sides.WidgetBlogger()[0:1]
+			sides.Sides[sideName] = sides.WidgetBlogger()[0:1]
 		} else if sideName == "newcomm" {
-			sides.Sides["newcomm"] = sides.WidgetNewcomm()
+			sides.Sides[sideName] = sides.WidgetNewcomm()
 		} else if sideName == "search" {
-			sides.Sides["search"] = make([]interface{}, 0)
+			sides.Sides[sideName] = make([]interface{}, 0)
 		} else if sideName == "random_log" {
-			sides.Sides["random_log"] = sides.WidgetRandomLog()
+			sides.Sides[sideName] = sides.WidgetRandomLog()
+		} else if strings.HasPrefix(sideName, "custom_wg_") {
+			sides.Sides[sideName] = sides.WidgetCustomText(customWidget)
 		} else {
-			//fmt.Println(sideName)
+			fmt.Println(sideName)
 			sides.Sides[sideName] = make([]interface{}, 10)
 		}
 	}

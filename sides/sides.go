@@ -109,8 +109,13 @@ func WidgetNewcomm() (commentsInterface []interface{}) {
 	}
 	return commentsInterface
 }
-
+//随机文章
 func WidgetRandomLog() (blogs []interface{}) {
 	blogs = models.BlogRandom()
 	return
+}
+//自定义组件
+func WidgetCustomText(customWidget interface{}) []interface{} {
+	content := []interface{}{customWidget}
+	return content
 }

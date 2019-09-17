@@ -137,14 +137,15 @@
                                 {{end}}
                             </ul>
                         </div>
+                    {{else if substr $sideName 0 10 | eq "custom_wg_"}}
+                        <div class="widget widget-recent-posts">
+                            {{range $sideContent}}
+                                <h3 class="widget-title">自定义组件</h3>
+                            {{end}}
+                        </div>
                     {{else}}
                         <div class="widget widget-recent-posts">
                             <h3 class="widget-title">{{$sideName}}还未开发</h3>
-                            {{/*                            <ul>*/}}
-                            {{/*                                <li>*/}}
-                            {{/*                                    <a href="#">还未开发</a>*/}}
-                            {{/*                                </li>*/}}
-                            {{/*                            </ul>*/}}
                         </div>
                     {{end}}
                 {{end}}
