@@ -51,8 +51,12 @@ func setOptions(c *MainController) {
 			sides.Sides[sideName] = make([]interface{}, 0)
 		} else if sideName == "random_log" {
 			sides.Sides[sideName] = sides.WidgetRandomLog()
-		} else if strings.HasPrefix(sideName, "custom_wg_") {
+		} else if strings.HasPrefix(sideName, "custom_wg_") {//自定义组件,未开发完
 			sides.Sides[sideName] = sides.WidgetCustomText(customWidget)
+		} else if strings.HasPrefix(sideName, "tag") {
+			sides.Sides[sideName] = sides.WidgetTag()
+		} else if strings.HasPrefix(sideName, "sort") {
+			sides.Sides[sideName] = sides.WidgetSort()
 		} else {
 			fmt.Println(sideName)
 			sides.Sides[sideName] = make([]interface{}, 10)

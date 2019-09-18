@@ -14,5 +14,6 @@ func init()  {
 		new(Sort),
 		new(Twitter),
 		new(Link),
+		new(Tag),
 		)
 }

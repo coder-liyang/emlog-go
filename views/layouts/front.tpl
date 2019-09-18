@@ -137,12 +137,24 @@
                                 {{end}}
                             </ul>
                         </div>
+                    {{else if eq $sideName "tag"}}
+
+                        <div class="widget widget-tag-cloud">
+                            <h3 class="widget-title">标签云</h3>
+                            <ul>
+                                {{range $sideContent}}
+                                    <li><a href="javascript:;">{{.Tagname}}</a></li>
+                                {{end}}
+                            </ul>
+                        </div>
                     {{else if substr $sideName 0 10 | eq "custom_wg_"}}
+                        <!--
                         <div class="widget widget-recent-posts">
                             {{range $sideContent}}
                                 <h3 class="widget-title">自定义组件</h3>
                             {{end}}
                         </div>
+                        -->
                     {{else}}
                         <div class="widget widget-recent-posts">
                             <h3 class="widget-title">{{$sideName}}还未开发</h3>
@@ -171,47 +183,13 @@
                         <li>
                             <a href="#">Django 博客教程 <span class="post-count">(13)</span></a>
                         </li>
-                        <li>
-                            <a href="#">Python 教程 <span class="post-count">(11)</span></a>
-                        </li>
+                        <ul>
+                            <li>
+                                <a href="#">Python 教程 <span class="post-count">(11)</span></a>
+                            </li>
+                        </ul>
                         <li>
                             <a href="#">Django 用户认证 <span class="post-count">(8)</span></a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="widget widget-tag-cloud">
-                    <h3 class="widget-title">标签云</h3>
-                    <ul>
-                        <li>
-                            <a href="#">Django</a>
-                        </li>
-                        <li>
-                            <a href="#">Python</a>
-                        </li>
-                        <li>
-                            <a href="#">Java</a>
-                        </li>
-                        <li>
-                            <a href="#">笔记</a>
-                        </li>
-                        <li>
-                            <a href="#">文档</a>
-                        </li>
-                        <li>
-                            <a href="#">AngularJS</a>
-                        </li>
-                        <li>
-                            <a href="#">CSS</a>
-                        </li>
-                        <li>
-                            <a href="#">JavaScript</a>
-                        </li>
-                        <li>
-                            <a href="#">Snippet</a>
-                        </li>
-                        <li>
-                            <a href="#">jQuery</a>
                         </li>
                     </ul>
                 </div>

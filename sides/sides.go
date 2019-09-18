@@ -1,6 +1,7 @@
 package sides
 
 import (
+	"fmt"
 	"github.com/astaxie/beego/orm"
 	"liyangweb/models"
 	"strconv"
@@ -22,9 +23,10 @@ func WidgetTwitter() (twitters []interface{}) {
 
 //归档
 type Archive struct {
-	Ym  string
+	Ym    string
 	Total int64
 }
+
 func WidgetArchive() (archive []interface{}) {
 	var archives []Archive
 	o := orm.NewOrm()
@@ -41,6 +43,7 @@ func WidgetArchive() (archive []interface{}) {
 	Sides["archive"] = archivesInterface
 	return archivesInterface
 }
+
 //友情链接
 func WidgetLink() ([]interface{}) {
 	//SELECT siteurl,sitename,description FROM e_link WHERE hide='n' ORDER BY taxis ASC
@@ -51,6 +54,7 @@ func WidgetLink() ([]interface{}) {
 	}
 	return linkInterafce
 }
+
 //我的信息
 func WidgetBlogger() ([]interface{}) {
 	user := models.GetUserFromUid(1)
@@ -58,27 +62,28 @@ func WidgetBlogger() ([]interface{}) {
 	usersI[0] = user
 	return usersI
 }
+
 //最新评论
 //原系统还查询了父评论,这里我就简单处理了,不查询父评论了
 func WidgetNewcomm() (commentsInterface []interface{}) {
 	var (
 		o orm.Ormer
 		//[{0 comment_order newer} {0 comment_paging y} {0 comment_pnum 15} {0 comment_subnum 20} {0 index_comnum 10}]
-		qs orm.QuerySeter
-		l []models.Options
+		qs       orm.QuerySeter
+		l        []models.Options
 		comments []models.Comments
 	)
 	/*
-	查看配置信息
-	SELECT option_value, option_name
-	FROM e_options
-	WHERE option_name IN ('index_comnum', 'comment_subnum', 'comment_paging', 'comment_pnum', 'comment_order')
-	comment_pnum:每页显示评论条数
-	index_comnum:首页最新评论数
-	comment_subnum:新近评论截取字节数
-	comment_paging:评论是否分页
-	comment_order:排序方式 newer older
-	 */
+		查看配置信息
+		SELECT option_value, option_name
+		FROM e_options
+		WHERE option_name IN ('index_comnum', 'comment_subnum', 'comment_paging', 'comment_pnum', 'comment_order')
+		comment_pnum:每页显示评论条数
+		index_comnum:首页最新评论数
+		comment_subnum:新近评论截取字节数
+		comment_paging:评论是否分页
+		comment_order:排序方式 newer older
+	*/
 	o = orm.NewOrm()
 	qs = o.QueryTable(new(models.Options))
 	qs = qs.Filter("option_name__in", "index_comnum", "comment_subnum", "comment_paging", "comment_pnum", "comment_order")
@@ -104,18 +109,40 @@ func WidgetNewcomm() (commentsInterface []interface{}) {
 	//}
 	oo := orm.NewOrm()
 	_, _ = oo.Raw("SELECT * FROM e_comment WHERE hide='n' ORDER BY date DESC LIMIT 0, ?", optionsMap["index_comnum"]).QueryRows(&comments)
-	for _, comment := range comments{
+	for _, comment := range comments {
 		commentsInterface = append(commentsInterface, comment)
 	}
 	return commentsInterface
 }
+
 //随机文章
 func WidgetRandomLog() (blogs []interface{}) {
 	blogs = models.BlogRandom()
 	return
 }
+
 //自定义组件
 func WidgetCustomText(customWidget interface{}) []interface{} {
 	content := []interface{}{customWidget}
 	return content
+}
+//所有标签(暂时只是全取出来,不查对应文章数量)
+func WidgetTag() []interface{} {
+	var (
+		l []models.Tag
+		tags []interface{}
+	)
+	o := orm.NewOrm()
+	qs := o.QueryTable(new(models.Tag))
+	_, _ = qs.All(&l)
+	for _, v := range l {
+		tags = append(tags, v)
+	}
+	return tags
+}
+
+func WidgetSort() (sort []interface{}) {
+	test := models.GetAllSortWithLevel(0)
+	fmt.Println(test)
+	return sort
 }
